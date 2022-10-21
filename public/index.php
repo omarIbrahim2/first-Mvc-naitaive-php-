@@ -17,7 +17,7 @@ use App\vendor\frontcontroller;
 
 
 
-
+ session_start();
 
  $controller =  new frontcontroller();
 

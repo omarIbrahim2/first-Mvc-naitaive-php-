@@ -65,6 +65,37 @@ abstract class model{
     return  new static::$className;       
   }
 
+    
+ public static function create($user){
+   
+  self::$query = "INSERT INTO " . " ". static::$tableName . " SET";
+    
+  self::$query = self::buildQuery($user , self::$query);
+
+  self::$query .= ";";
+
+   $stmt = DatabaseHandler::factory()->query(self::$query);
+
+
+   return $stmt->execute();
+
+ }
+ 
+ 
+
+ private static function buildQuery($values , $query){
+  
+  foreach($values as $key=>$index){
+    $query .= " ".$key."="."'$index'"." ". ",";
+   }
+
+      $queryInArr = explode(" " , $query , -1);
+      $query = implode(" " , $queryInArr);
+       
+
+       return $query;   
+
+ }
 
   
 

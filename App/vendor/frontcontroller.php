@@ -8,7 +8,7 @@ class frontcontroller{
 
       private $action = "default";
 
-      private $params = array();
+      public $params = array();
 
       
      public function __construct()
@@ -44,11 +44,16 @@ class frontcontroller{
             
          if (class_exists($controllerClassName)) {
                $controllerObj = new $controllerClassName();
+               
          }else{
             $controllerObj = new \App\controllers\NotFoundController();
          }
 
          if (method_exists($controllerObj , $this->action)) {
+
+               $controllerObj->setController($this->controller);
+               $controllerObj->setParams($this->params);
+               $controllerObj->setMethod($this->action);
               $method = $this->action;
               $controllerObj->$method();
 
